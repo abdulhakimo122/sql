@@ -14,7 +14,7 @@ with skills_demand as (
         skills_dim.skill_id
 ), average_salary as (
     SELECT 
-        skills_dim.skill_id,
+        skills_job_dim.skill_id,
         ROUND(Avg(job_postings_fact.salary_year_avg), 0) as AVG_SALARY
     FROM 
         job_postings_fact
@@ -25,7 +25,7 @@ with skills_demand as (
         salary_year_avg IS NOT NULL AND
         job_location Like '%South Africa%'
     Group by
-        skills_dim.skill_id
+        skills_job_dim.skill_id
 )
 SELECT
     skills_demand.skill_id,
