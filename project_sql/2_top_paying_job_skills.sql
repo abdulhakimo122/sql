@@ -5,6 +5,7 @@ add the speciic skills required for these roles
 why?it gives us a detailed look at which high paying jobs require certain skills
 helping job seekers undertand which skills which skills to developthat align with top salaries
 */
+
 WITH top_paying_jobs as (
     select 
         job_id,

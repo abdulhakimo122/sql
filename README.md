@@ -1,7 +1,5 @@
 # Data Analyst Job Market Analysis
 
-📊 Dive into the data job market! Focusing on **data analyst roles**, this project explores 💰 top-paying jobs, 🔥 in-demand skills, and 📈 where high demand meets high salary in data analytics.
-
 ---
 
 ## Table of Contents
@@ -84,12 +82,16 @@ LIMIT 10;
 ```
 **Breakdown of the top data analyst jobs in 2023:**
 
-- **Wide Salary Range**: Top 10 paying data analyst roles span from $184,000 to $650,000.
-- **Diverse Employers**: Companies like SmartAsset, Meta, and AT&T are among those offering high salaries.
-- **Job Title Variety**: Data Analyst to Director of Analytics, reflecting varied roles and specializations.
+- **Wide Salary Range**: Top 10 paying data analyst roles span from R441,000 to R530,000.
+- **Diverse Employers**: Companies like Starnderd Bank, Deloitte, and OUTsursnce are among those offering high salaries.
+- **Job Title Variety**: Data Analyst to Data Quality, reflecting varied roles and specializations.
 
 **Visualization:**  
 Top Paying Roles Bar graph visualizing the salary for the top 10 salaries for data analysts (ChatGPT generated).
+
+
+
+
 
 ---
 
@@ -98,39 +100,40 @@ Top Paying Roles Bar graph visualizing the salary for the top 10 salaries for da
 To understand what skills are required for the top-paying jobs, I joined the job postings with the skills data, providing insights into what employers value for high-compensation roles.
 
 ```sql
-WITH top_paying_jobs AS (
-    SELECT	
+WITH top_paying_jobs as (
+    select 
         job_id,
         job_title,
         salary_year_avg,
-        name AS company_name
-    FROM
+        name as company_name
+    from
         job_postings_fact
-    LEFT JOIN company_dim ON job_postings_fact.company_id = company_dim.company_id
-    WHERE
-        job_title_short = 'Data Analyst' AND 
-        job_location = 'Anywhere' AND 
-        salary_year_avg IS NOT NULL
+    left join company_dim
+    ON job_postings_fact.company_id = company_dim.company_id
+    where
+        job_title_short = 'Data Analyst' AND
+        job_location Like '%South Africa%' AND
+        salary_year_avg is not null
     ORDER BY
         salary_year_avg DESC
-    LIMIT 10
+    limit 10
 )
-SELECT 
-    top_paying_jobs.*,
+
+select 
+    top_paying_jobs.* ,
     skills
-FROM top_paying_jobs
-INNER JOIN skills_job_dim ON top_paying_jobs.job_id = skills_job_dim.job_id
-INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
-ORDER BY
-    salary_year_avg DESC;
+from top_paying_jobs
+inner join skills_job_dim on top_paying_jobs.job_id = skills_job_dim.job_id
+INNER JOIN skills_dim on skills_job_dim.skill_id = skills_dim.skill_id
+
 ```
 
 **Most demanded skills for top 10 paying data analyst jobs in 2023:**
 
 - SQL: 8 jobs
-- Python: 7 jobs
-- Tableau: 6 jobs
-- Other skills: R, Snowflake, Pandas, Excel
+- Python: 5 jobs
+- aws: 4 jobs
+- Other skills: Excel, Looker, Spark, tableu
 
 **Visualization:**  
 Top Paying Skills Bar graph visualizing the count of skills for the top 10 paying jobs.
@@ -161,11 +164,11 @@ LIMIT 5;
 
 | Skills   | Demand Count |
 |----------|--------------|
-| SQL      | 7291         |
-| Excel    | 4611         |
-| Python   | 4330         |
-| Tableau  | 3745         |
-| Power BI | 2609         |
+| SQL      | 1204         |
+| Excel    | 798          |
+| Python   | 645          |
+| Power Bi | 509          |
+| sas      | 438          |
 
 ---
 
@@ -174,42 +177,45 @@ LIMIT 5;
 Exploring average salaries associated with different skills reveals the highest paying ones.
 
 ```sql
+
 SELECT 
     skills,
-    ROUND(AVG(salary_year_avg), 0) AS avg_salary
-FROM job_postings_fact
-INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
-INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+    ROUND(Avg(salary_year_avg), 0) as AVG_SALARY
+FROM 
+    job_postings_facT
+INNER JOIN skills_job_dim on job_postings_fact.job_id = skills_job_dim.job_id
+INNER JOIN skills_dim on skills_job_dim.skill_id = skills_dim.skill_id
 WHERE
-    job_title_short = 'Data Analyst'
-    AND salary_year_avg IS NOT NULL
-    AND job_work_from_home = True 
-GROUP BY
+    job_title_short = 'Data Analyst' AND
+    salary_year_avg IS NOT NULL AND
+    job_location Like '%South Africa%'
+Group by
     skills
-ORDER BY
-    avg_salary DESC
-LIMIT 25;
+Order by 
+    AVG_SALARY DESC
+limit 25;
+
 ```
 **Top Paying Skills and Average Salary:**
 
-| Skills        | Average Salary ($) |
+| Skills        | Average Salary($)|
 |---------------|------------------|
-| pyspark       | 208,172          |
-| bitbucket     | 189,155          |
-| couchbase     | 160,515          |
-| watson        | 160,515          |
-| datarobot     | 155,486          |
-| gitlab        | 154,500          |
-| swift         | 153,750          |
-| jupyter       | 152,777          |
-| pandas        | 151,821          |
-| elasticsearch | 145,000          |
+| Spark         | 126225           |
+| Databricks    | 124892           |
+| AWS           | 106938           |
+| Java          | 106838           |
+| Airflow       | 106838           |
+| c++           | 106838           |
+| Scala         | 106838           |
+| Kafka         | 105838           |
+| Bigquery      | 104892           |
+| no-sql        | 104838           |
+
 
 **Insights:**  
-- **Big Data & ML skills**: PySpark, Couchbase, DataRobot, Jupyter, Pandas  
-- **Software Development & Deployment**: GitLab, Kubernetes, Airflow  
-- **Cloud & Data Engineering**: Elasticsearch, Databricks, GCP
-
+- **Big Data & Distributed Systems**: Spark, Databricks, Kafka, Scala – these skills appear among the highest-paying, highlighting the strong demand for handling large-scale data processing and distributed computing.  
+- **Cloud & Data Platforms**: AWS, BigQuery, Elasticsearch, GCP – key technologies in high-paying roles, showing the importance of cloud-based data infrastructure and analytics platforms.  
+- **Programming & Backend Development**: Java, C++ – remain valuable for building high-performance systems and data-intensive applications.
 ---
 
 ### 5. Most Optimal Skills to Learn
@@ -217,41 +223,79 @@ LIMIT 25;
 Combining demand and salary data, these skills are high-value for career growth.
 
 ```sql
-SELECT 
-    skills_dim.skill_id,
-    skills_dim.skills,
-    COUNT(skills_job_dim.job_id) AS demand_count,
-    ROUND(AVG(job_postings_fact.salary_year_avg), 0) AS avg_salary
-FROM job_postings_fact
-INNER JOIN skills_job_dim ON job_postings_fact.job_id = skills_job_dim.job_id
-INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
-WHERE
-    job_title_short = 'Data Analyst'
-    AND salary_year_avg IS NOT NULL
-    AND job_work_from_home = True 
-GROUP BY
-    skills_dim.skill_id
-HAVING
-    COUNT(skills_job_dim.job_id) > 10
-ORDER BY
-    avg_salary DESC,
-    demand_count DESC
-LIMIT 25;
+
+with skills_demand as (
+    SELECT 
+        skills_dim.skill_id,
+        skills_dim.skills,
+        count(skills_job_dim.job_id) as demand_count
+    FROM 
+        job_postings_fact
+    INNER JOIN skills_job_dim on job_postings_fact.job_id = skills_job_dim.job_id
+    INNER JOIN skills_dim on skills_job_dim.skill_id = skills_dim.skill_id
+    WHERE
+        job_title_short = 'Data Analyst' AND
+        job_location Like '%South Africa%'
+    Group by
+        skills_dim.skill_id
+), average_salary as (
+    SELECT 
+        skills_job_dim.skill_id,
+        ROUND(Avg(job_postings_fact.salary_year_avg), 0) as AVG_SALARY
+    FROM 
+        job_postings_fact
+    INNER JOIN skills_job_dim on job_postings_fact.job_id = skills_job_dim.job_id
+    INNER JOIN skills_dim on skills_job_dim.skill_id = skills_dim.skill_id
+    WHERE
+        job_title_short = 'Data Analyst' AND
+        salary_year_avg IS NOT NULL AND
+        job_location Like '%South Africa%'
+    Group by
+        skills_job_dim.skill_id
+)
+SELECT
+    skills_demand.skill_id,
+    skills_demand.skills,
+    demand_count,
+    avg_salary
+from skills_demand
+inner join average_salary on skills_demand.skill_id = average_salary.skill_id
+where 
+    demand_count > 10
+order BY    
+    demand_count desc
+limit 25;
+
+
 ```
 ### Most Optimal Skills in 2023
 
-| Skill ID | Skills      | Demand Count | Average Salary ($) |
-|----------|------------|--------------|------------------|
-| 8        | go         | 27           | 115,320          |
-| 234      | confluence | 11           | 114,210          |
-| 97       | hadoop     | 22           | 113,193          |
-| 80       | snowflake  | 37           | 112,948          |
-| 74       | azure      | 34           | 111,225          |
-| 77       | bigquery   | 13           | 109,654          |
-| 76       | aws        | 32           | 108,317          |
-| 4        | java       | 17           | 106,906          |
-| 194      | ssis       | 12           | 106,683          |
-| 233      | jira       | 20           | 104,918          |
+| Skill ID | Skills       | Demand Count | Average Salary ($) |
+|----------|-------------|--------------|------------------|
+| 0        | SQL         | 1,304        | 78,555           |
+| 181      | Excel       | 798          | 84,741           |
+| 1        | Python      | 645          | 94,837           |
+| 183      | Power BI    | 509          | 77,916           |
+| 5        | R           | 412          | 59,584           |
+| 182      | Tableau     | 327          | 90,136           |
+| 7        | SAS         | 219          | 61,292           |
+| 74       | Azure       | 212          | 44,100           |
+| 189      | SAP         | 198          | 75,068           |
+| 76       | AWS         | 198          | 106,938          |
+| 188      | Word        | 136          | 56,700           |
+| 215      | Flow        | 131          | 93,966           |
+| 196      | PowerPoint  | 120          | 69,300           |
+| 4        | Java        | 111          | 106,838          |
+| 97       | Hadoop      | 91           | 92,225           |
+| 79       | Oracle      | 89           | 51,014           |
+| 187      | Qlik        | 81           | 81,095           |
+| 92       | Spark       | 62           | 126,225          |
+| 2        | NoSQL       | 52           | 92,225           |
+| 13       | C++         | 51           | 106,838          |
+| 56       | MySQL       | 49           | 104,838          |
+| 98       | Kafka       | 49           | 105,838          |
+| 8        | Go          | 44           | 59,584           |
+| 3        | Scala       | 43           | 106,838          |
 
 **Insights:**  
 - **Programming Languages:** Python, R  
@@ -259,6 +303,52 @@ LIMIT 25;
 - **Business Intelligence & Visualization:** Tableau, Looker  
 - **Databases:** Oracle, SQL Server, NoSQL
 
+# 🔍 Big Picture Insights
+
+## Demand Leaders (Most Requested Skills)
+
+These skills appear most frequently in job postings:
+
+- **SQL** — 1,304 demand count  
+- **Excel** — 798 demand count  
+- **Python** — 645 demand count  
+- **Power BI** — 509 demand count  
+- **R** — 412 demand count  
+
+### Insight
+The job market strongly prioritizes **data handling and analytics tools**, especially:
+- SQL (core querying skill)
+- Python (analysis + automation)
+- BI tools (Power BI, Excel)
+
+---
+
+## 💰 Highest Paying Skills
+
+Top-paying skills based on average salary:
+
+- **Spark** — $126,225  
+- **AWS** — $106,938  
+- **Java / C++ / Scala** — ~$106,800  
+- **Kafka** — $105,838  
+- **MySQL** — $104,838  
+
+### 💡 Insight
+High salaries are concentrated in:
+
+- **Big Data technologies** (Spark, Kafka)  
+- **Cloud platforms** (AWS)  
+- **Backend engineering languages** (Java, C++, Scala)
+
+---
+
+## 🧠 Key Takeaway
+
+- High demand skills ≠ highest paying skills  
+- Foundational tools (SQL, Excel) dominate demand  
+- Advanced tools (Spark, AWS) dominate salary  
+
+👉 The best opportunities come from combining both.
 ---
 
 ## What I Learned
