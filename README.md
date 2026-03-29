@@ -87,11 +87,9 @@ LIMIT 10;
 - **Job Title Variety**: Data Analyst to Data Quality, reflecting varied roles and specializations.
 
 **Visualization:**  
-Top Paying Roles Bar graph visualizing the salary for the top 10 salaries for data analysts (ChatGPT generated).
+Top Paying Roles Bar graph visualizing the salary for the top 10 salaries for data analysts .
 
-
-
-
+![Visualization 1](images/vis1.png)
 
 ---
 
@@ -135,8 +133,10 @@ INNER JOIN skills_dim on skills_job_dim.skill_id = skills_dim.skill_id
 - aws: 4 jobs
 - Other skills: Excel, Looker, Spark, tableu
 
-**Visualization:**  
+**Visualisation:**  
 Top Paying Skills Bar graph visualizing the count of skills for the top 10 paying jobs.
+
+![Visualisation 2](images/vis2.png)
 
 ---
 
@@ -303,7 +303,7 @@ limit 25;
 - **Business Intelligence & Visualization:** Tableau, Looker  
 - **Databases:** Oracle, SQL Server, NoSQL
 
-# 🔍 Big Picture Insights
+# 🔍 Big Picture 
 
 ## Demand Leaders (Most Requested Skills)
 
@@ -319,7 +319,7 @@ These skills appear most frequently in job postings:
 The job market strongly prioritizes **data handling and analytics tools**, especially:
 - SQL (core querying skill)
 - Python (analysis + automation)
-- BI tools (Power BI, Excel)
+- Visualisation (Power BI, Excel)
 
 ---
 
@@ -342,7 +342,7 @@ High salaries are concentrated in:
 
 ---
 
-## 🧠 Key Takeaway
+## 🧠 My Key Takeaway
 
 - High demand skills ≠ highest paying skills  
 - Foundational tools (SQL, Excel) dominate demand  
@@ -353,9 +353,9 @@ High salaries are concentrated in:
 
 ## What I Learned
 
-- 🧩 **Complex Query Crafting:** Mastered advanced SQL techniques including WITH clauses and multi-table joins  
-- 📊 **Data Aggregation:** Leveraged GROUP BY, COUNT(), and AVG() to summarize and analyze data  
-- 💡 **Analytical Thinking:** Translated real-world questions into actionable SQL insights
+- **Complex Query Crafting:** Mastered advanced SQL techniques including WITH clauses and multi-table joins  
+- **Data Aggregation:** Leveraged GROUP BY, COUNT(), and AVG() to summarize and analyze data  
+- **Analytical Thinking:** Translated real-world questions into actionable SQL insights
 
 ---
 
@@ -364,11 +364,11 @@ High salaries are concentrated in:
 - **Top-Paying Jobs:** Remote data analyst roles can pay up to $650,000  
 - **Skills for Top-Paying Jobs:** SQL is critical for earning potential  
 - **Most In-Demand Skills:** SQL remains dominant in job postings  
-- **Skills with Higher Salaries:** Niche skills like SVN and Solidity command premium pay  
+- **Skills with Higher Salaries:** Niche skills like Aws and Spark is where you get the highest pay  
 - **Optimal Skills for Market Value:** SQL and other in-demand skills combine high salary with high demand
 
 ---
 
 ## Closing Thoughts
 
-This project strengthened my SQL expertise and provided valuable insights into the data analyst job market. Aspiring data analysts should focus on **high-demand, high-salary skills** to strategically advance their careers. Continuous learning and adapting to industry trends remain essential.
+This project strengthened my SQL expertiskills and provided valuable information into the data analyst job market. Aspiring data analysts should focus on **high-demand, high-salary skills** to advance their careers. Continuous learning and adapting to industry trends remain essential.
